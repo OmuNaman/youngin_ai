@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link as ScrollLink } from 'react-scroll';
-import { Zap } from 'lucide-react';
+import React from "react";
+import { Link as ScrollLink } from "react-scroll";
+import { Zap } from "lucide-react";
 
 const Header = () => {
   return (
@@ -8,7 +8,7 @@ const Header = () => {
       <div className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center space-x-2 cursor-pointer">
           <Zap className="w-8 h-8 text-accent-primary" />
-          <span className="text-2xl font-bold text-accent-primary">
+          <span className="text-2xl font-bold text-accent-primary font-heading">
             Youngin AI
           </span>
         </div>

@@ -10,10 +10,11 @@ export default {
         'accent-secondary': '#8b5cf6',
         'text-primary': '#fafafa',
         'text-secondary': '#d4d4d8',
+        'gold-accent': '#D4AF37',
       },
       fontFamily: {
-        heading: ['Bebas Neue', 'sans-serif'], // Example heading font
-        body: ['Roboto', 'sans-serif'], // Example body text font
+        heading: ['Bebas Neue', 'sans-serif'],
+        body: ['Roboto', 'sans-serif'],
       },
     },
   },

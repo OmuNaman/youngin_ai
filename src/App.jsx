@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import Header from "./components/Header";
-import CodeInput from "./components/CodeInput";
-import ReviewOutput from "./components/ReviewOutput";
-import Loading from "./components/Loading";
-import Error from "./components/Error";
+import { useState } from 'react';
+import Header from './components/Header';
+import CodeInput from './components/CodeInput';
+import ReviewOutput from './components/ReviewOutput';
+import Loading from './components/Loading';
+import Error from './components/Error';
 
 function App() {
-  const [review, setReview] = useState("");
+  const [review, setReview] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleCodeSubmit = async (code) => {
     setIsLoading(true);
     setError(null);
-    setReview("");
+    setReview('');
 
     try {
-      // Simulate an API call
+      // Simulate an API call with a delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Here you would normally send the code to your backend for processing
@@ -32,7 +32,7 @@ function App() {
 
       setReview(generatedReview);
     } catch (err) {
-      setError("Failed to get code review. Try again later.");
+      setError('Failed to get code review. Try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -42,7 +42,6 @@ function App() {
     <div className="bg-dark-primary text-text-primary min-h-screen flex flex-col">
       <Header />
       <main className="container mx-auto px-4 py-8 flex-grow">
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <CodeInput onCodeSubmit={handleCodeSubmit} />
           <div>

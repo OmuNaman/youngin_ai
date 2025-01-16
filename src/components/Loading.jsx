@@ -1,10 +1,10 @@
-import React from 'react';
-import { Loader2 } from 'lucide-react';
+import React from "react";
+import { Loader2 } from "lucide-react";
 
 const Loading = () => {
   return (
     <div className="flex justify-center items-center p-6">
-      <Loader2 className="animate-spin text-accent-primary w-8 h-8" />
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-accent-primary"></div>
     </div>
   );
 };
