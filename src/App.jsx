@@ -30,7 +30,7 @@ function App() {
               </a>
             </div>  
             <p className="mb-2">Created with ❤️ by Naman</p>
-            <p>© {new Date().getFullYear()} Oratiq. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Youngin AI. All rights reserved.</p>
           </div>
         </footer>
       </div>
