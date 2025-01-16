@@ -11,6 +11,8 @@ import {
   Clock,
   CheckCircle,
   Languages,
+  Book,
+  Shield,
 } from "lucide-react";
 
 const HomePage = () => {
@@ -53,19 +55,28 @@ const HomePage = () => {
       description:
         "Straight talk, no sugar-coatin'. We tell you what's good and what's whack about your code.",
     },
+    {
+      icon: <Languages className="w-10 h-10 text-purple-400" />,
+      title: "Speaks Your Language",
+      description:
+        "Don't matter if it's Python, JavaScript, or C++, this AI knows your language.",
+    },
+    {
+      icon: <Clock className="w-10 h-10 text-purple-400" />,
+      title: "Always On the Clock",
+      description:
+        "24/7, this AI is ready to roll. Get your code reviewed anytime, day or night.",
+    },
+    {
+      icon: <Book className="w-10 h-10 text-purple-400" />,
+      title: "Street Smart Learning",
+      description:
+        "This AI is always learnin', always evolvin'. It stays on top of the latest coding trends.",
+    },
   ];
 
-  const pricingPlan = {
-    title: "Free Plan",
-    price: "$0",
-    features: [
-      "Access to core AI review features",
-      "Limited number of code reviews per month",
-      "Standard code analysis",
-      "Community support",
-    ],
-    buttonText: "Get Started for Free",
-    buttonAction: () => navigate("/dashboard"),
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
   return (
@@ -82,7 +93,7 @@ const HomePage = () => {
           </p>
           <div className="flex justify-center space-x-4">
             <button
-              onClick={() => navigate("/dashboard")}
+              onClick={() => handleNavigation("/dashboard")}
               className="bg-purple-500 hover:bg-purple-600 px-8 py-3 rounded-lg text-lg font-semibold transition-all transform hover:scale-105"
             >
               Try It Now
@@ -117,90 +128,6 @@ const HomePage = () => {
                 <p className="text-gray-400">{feature.description}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Pricing Section */}
-        <section
-          className="container mx-auto px-6 py-10 relative"
-          id="pricing"
-        >
-          <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-8 rounded-xl shadow-lg relative z-10">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold mb-4 text-purple-500 font-heading">
-                Start Ballin' with the Free Plan
-              </h2>
-              <p className="text-lg mb-2">
-                No need to drop bands, get your code checked for free.
-              </p>
-              {/* Testimonial (Static Example) */}
-              <div className="mb-4">
-                <p className="text-gray-400 italic">
-                  "Youngin AI kept it real with my code. Found issues I ain't
-                  even know I had. This AI a real G."
-                </p>
-                <p className="text-gray-400 font-bold mt-2">- Lil' Code, Aspiring Dev</p>
-              </div>
-              <div className="flex justify-center space-x-4 mb-8">
-                {/* Replace these with actual icons and data */}
-                <div className="flex items-center">
-                  <Clock className="text-blue-400 mr-2 w-5 h-5" />
-                  <span className="text-sm">
-                    Under <span className="font-semibold">5 mins</span>{" "}
-                    processing
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2 w-5 h-5" />
-                  <span className="text-sm">
-                    <span className="font-semibold">99.9%</span> accuracy
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <Languages className="text-purple-400 mr-2 w-5 h-5" />
-                  <span className="text-sm">
-                    <span className="font-semibold">50+</span> languages
-                  </span>
-                </div>
-              </div>
-
-              {/* Pricing Card */}
-              <div className="bg-gray-800 p-8 rounded-xl border border-gray-700 max-w-md mx-auto">
-                <div className="mb-4 flex justify-center">
-                  <Code className="text-purple-500 w-8 h-8" />
-                </div>
-                <h3 className="text-3xl font-semibold mb-2 text-purple-400 font-heading">
-                  {pricingPlan.title}
-                </h3>
-                <p className="text-6xl font-bold text-purple-400 mb-6">
-                  {pricingPlan.price}
-                  <span className="text-xl text-gray-400">/month</span>
-                </p>
-                <ul className="text-gray-400 mb-6 space-y-2">
-                  {pricingPlan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
-                      <CheckCircle className="text-green-500 mr-2 w-5 h-5" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={pricingPlan.buttonAction}
-                  className="bg-gradient-to-r from-purple-500 to-purple-900 hover:from-purple-600 hover:to-purple-800 px-8 py-3 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 w-full"
-                >
-                  {pricingPlan.buttonText}
-                </button>
-              </div>
-              <div className="mt-6 text-center">
-                <p className="text-gray-400">
-                  Join{" "}
-                  <span className="text-white font-bold">
-                    over 10,000+
-                  </span>{" "}
-                  ballers worldwide.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
       </div>

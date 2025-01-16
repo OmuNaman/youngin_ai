@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard';
-import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Install react-icons
+import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; 
 
 function App() {
   return (
@@ -28,7 +28,8 @@ function App() {
               <a href="#" className="hover:text-blue-400 transition-colors">
                 <FaLinkedin className="w-6 h-6" />
               </a>
-            </div>    
+            </div>
+            <p className="mb-2">Created with ❤️ by Naman</p>
             <p>© {new Date().getFullYear()} Youngin AI. All rights reserved.</p>
           </div>
         </footer>

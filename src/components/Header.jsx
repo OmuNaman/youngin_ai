@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { Zap } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -22,15 +22,6 @@ const Header = () => {
             className="hover:text-accent-primary transition-colors cursor-pointer"
           >
             Features
-          </ScrollLink>
-          <ScrollLink
-            to="pricing"
-            smooth={true}
-            duration={500}
-            offset={-70}
-            className="hover:text-accent-primary transition-colors cursor-pointer"
-          >
-            Pricing
           </ScrollLink>
           <ScrollLink
             to="contact"
