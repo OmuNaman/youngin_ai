@@ -12,8 +12,8 @@ export default {
         'text-secondary': '#d4d4d8',
       },
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
+        heading: ['Bebas Neue', 'sans-serif'], // Example heading font
+        body: ['Roboto', 'sans-serif'], // Example body text font
       },
     },
   },

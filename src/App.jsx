@@ -42,6 +42,7 @@ function App() {
     <div className="bg-dark-primary text-text-primary min-h-screen flex flex-col">
       <Header />
       <main className="container mx-auto px-4 py-8 flex-grow">
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <CodeInput onCodeSubmit={handleCodeSubmit} />
           <div>
