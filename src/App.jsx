@@ -28,8 +28,7 @@ function App() {
               <a href="#" className="hover:text-blue-400 transition-colors">
                 <FaLinkedin className="w-6 h-6" />
               </a>
-            </div>  
-            <p className="mb-2">Created with ❤️ by Naman</p>
+            </div>    
             <p>© {new Date().getFullYear()} Youngin AI. All rights reserved.</p>
           </div>
         </footer>
