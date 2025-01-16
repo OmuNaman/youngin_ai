@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/themes/prism.css';
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs/components/prism-core";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
+import "prismjs/themes/prism.css"; // Import a theme (optional)
 
 const CodeInput = ({ onCodeSubmit }) => {
   const [code, setCode] = useState("");
@@ -22,17 +22,17 @@ const CodeInput = ({ onCodeSubmit }) => {
         Paste Your Code Here
       </h2>
       <Editor
-      value={code}
-      onValueChange={setCode}
-      highlight={code => highlight(code, languages.js)}
-      padding={10}
-      style={{
-        fontFamily: '"Fira code", "Fira Mono", monospace',
-        fontSize: 16,
-        backgroundColor: '#27272a',
-        color: '#fafafa'
-      }}
-    />
+        value={code}
+        onValueChange={setCode}
+        highlight={(code) => highlight(code, languages.js)}
+        padding={10}
+        style={{
+          fontFamily: '"Fira code", "Fira Mono", monospace',
+          fontSize: 16,
+          backgroundColor: "#27272a",
+          color: "#fafafa",
+        }}
+      />
       <button
         onClick={handleSubmit}
         className="mt-4 bg-accent-primary hover:bg-accent-secondary text-white font-bold py-2 px-4 rounded-md transition-colors"

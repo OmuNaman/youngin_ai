@@ -16,11 +16,9 @@ const Dashboard = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
-  const [transcription, setTranscription] = useState("");
-  const [isTranscribing, setIsTranscribing] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false); // Add isPlaying state
+  const [review, setReview] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
-  const audioRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,146 +34,76 @@ const Dashboard = () => {
     }
   };
 
-  const validateFile = (file) => {
-    if (!file.type.startsWith("audio/")) {
-      return "Please upload an audio file";
-    }
-
-    return new Promise((resolve, reject) => {
-      const audio = new Audio();
-      audio.src = URL.createObjectURL(file);
-
-      audio.addEventListener("loadedmetadata", () => {
-        URL.revokeObjectURL(audio.src);
-        if (audio.duration > 600) {
-          reject("File duration exceeds 10 minutes limit");
-        } else {
-          resolve(null);
-        }
-      });
-
-      audio.addEventListener("error", () => {
-        URL.revokeObjectURL(audio.src);
-        reject("Error loading audio file");
-      });
-    });
-  };
-
   const handleDrop = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     setError("");
-
+  
     const droppedFile = e.dataTransfer.files[0];
-    try {
-      const validationError = await validateFile(droppedFile);
-      if (!validationError) {
-        setFile(droppedFile);
-      } else {
-        setError(validationError);
-      }
-    } catch (err) {
-      setError(err);
-    }
+    setFile(droppedFile); // Set the file to state
   };
+  
 
   const handleChange = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     if (e.target.files && e.target.files[0]) {
-      try {
-        const validationError = await validateFile(e.target.files[0]);
-        if (!validationError) {
-          setFile(e.target.files[0]);
-        } else {
-          setError(validationError);
-        }
-      } catch (err) {
-        setError(err);
-      }
+      setFile(e.target.files[0]);
     }
   };
-
-  const handlePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+  
 
   const handleSubmit = async () => {
     if (!file) return;
 
-    setUploading(true);
+    setIsSubmitting(true);
     setError(null);
+    setReview("");
 
-    const formData = new FormData();
-    formData.append("audioFile", file);
+    // Simulate an API call with a delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    try {
-      const response = await fetch("http://localhost:5000/transcribe", {
-        method: "POST",
-        body: formData,
-      });
+    // Here you would normally send the code to your backend for processing
+    // For this example, we'll just set a placeholder review
+    const generatedReview = `
+    Yo, check it, here's da lowdown on ya code, straight up:
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+    - Line 5: Aight, so you got a variable declared but ain't even usin' it. What's up with that?
+    - Line 12: Bruh, that function is longer than my grandma's grocery list. Break that down into smaller pieces, ya feel me?
+    - Line 18: You could use a map here instead of that old-school for loop. Keep it clean, G.
+    - Overall: Not bad for a rookie, but keep grindin'. You got potential, I see you.
+    `;
 
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      setTranscription(data.transcription);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setUploading(false);
-      setIsTranscribing(false);
-    }
-  };
-
-  const handleDownload = () => {
-    const blob = new Blob([transcription], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "transcription.txt";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    setReview(generatedReview);
+    setIsSubmitting(false);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      {/* Navigation */}
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div
           onClick={() => navigate("/")}
           className="flex items-center space-x-2 cursor-pointer"
         >
           <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Oratiq
+            Youngin AI
           </span>
         </div>
       </nav>
 
+      {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Upload Audio File</h1>
+          <h1 className="text-3xl font-bold mb-8">Upload Code File</h1>
 
+          {/* Upload Area */}
           <div
             className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-all ${
               dragActive
-                ? "border-blue-500 bg-blue-500/10"
+                ? "border-purple-500 bg-purple-500/10"
                 : "border-gray-600 hover:border-gray-500"
             } ${error ? "border-red-500 bg-red-500/10" : ""}`}
             onDragEnter={handleDrag}
@@ -186,7 +114,6 @@ const Dashboard = () => {
             <input
               ref={inputRef}
               type="file"
-              accept="audio/*"
               onChange={handleChange}
               className="hidden"
             />
@@ -198,16 +125,13 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <p className="text-lg">
-                    Drag and drop your audio file here, or{" "}
+                    Drag and drop your code file here, or{" "}
                     <button
                       onClick={() => inputRef.current?.click()}
-                      className="text-blue-400 hover:text-blue-300"
+                      className="text-purple-400 hover:text-purple-300"
                     >
                       browse
                     </button>
-                  </p>
-                  <p className="text-gray-400 mt-2">
-                    Maximum duration: 10 minutes
                   </p>
                 </div>
               </div>
@@ -215,48 +139,28 @@ const Dashboard = () => {
 
             {file && !error && (
               <div className="space-y-4">
-                {/* Audio Player */}
-                {file && (
-                  <div className="flex items-center justify-center space-x-2">
-                    <button onClick={handlePlayPause}>
-                      {isPlaying ? (
-                        <Pause className="w-6 h-6 text-blue-500" />
-                      ) : (
-                        <Play className="w-6 h-6 text-blue-500" />
-                      )}
-                    </button>
-                    <audio
-                      ref={audioRef}
-                      src={URL.createObjectURL(file)}
-                      onEnded={() => setIsPlaying(false)}
-                    />
-                    <span className="text-lg">{file.name}</span>
-                    <button
-                      onClick={() => setFile(null)}
-                      className="p-1 hover:bg-gray-700 rounded"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                )}
-
+                <div className="flex items-center justify-center space-x-2">
+                  <Check className="w-6 h-6 text-green-500" />
+                  <span className="text-lg">{file.name}</span>
+                  <button
+                    onClick={() => setFile(null)}
+                    className="p-1 hover:bg-gray-700 rounded"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
                 <button
                   onClick={handleSubmit}
-                  disabled={uploading || isTranscribing}
-                  className="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
+                  className="bg-purple-500 hover:bg-purple-600 px-6 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {uploading ? (
+                  {isSubmitting ? (
                     <div className="flex items-center space-x-2">
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Uploading...</span>
-                    </div>
-                  ) : isTranscribing ? (
-                    <div className="flex items-center space-x-2">
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Transcribing...</span>
+                      <span>Submitting...</span>
                     </div>
                   ) : (
-                    "Start Transcription"
+                    "Submit Code"
                   )}
                 </button>
               </div>
@@ -273,29 +177,13 @@ const Dashboard = () => {
                     setError("");
                     setFile(null);
                   }}
-                  className="text-blue-400 hover:text-blue-300"
+                  className="text-purple-400 hover:text-purple-300"
                 >
                   Try Again
                 </button>
               </div>
             )}
           </div>
-
-          {/* Display Transcription */}
-          {transcription && (
-            <div className="mt-8 p-4 bg-gray-800 rounded-lg">
-              <h3 className="text-xl font-semibold mb-4">Transcription:</h3>
-              <div className="text-gray-300 whitespace-pre-wrap">
-                {transcription}
-              </div>
-              <button
-                onClick={handleDownload}
-                className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg mt-4"
-              >
-                Download as TXT
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>

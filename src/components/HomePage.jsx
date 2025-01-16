@@ -70,7 +70,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col">
-      <Header/>
       <div className="flex-grow">
         {/* Hero Section */}
         <section className="container mx-auto px-6 py-20 text-center">
